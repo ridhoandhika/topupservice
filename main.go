@@ -45,6 +45,9 @@ func main() {
 	// Gunakan middleware Swagger
 	app.Use(swagger.New(cfg))
 
+	app.Get("/", func(c *fiber.Ctx) error {
+		return c.SendString("Test Ping")
+	})
 	apiRoutes := app.Group("api")
 
 	api.User(apiRoutes.(*fiber.Group), userService)
