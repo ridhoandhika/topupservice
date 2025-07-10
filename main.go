@@ -55,5 +55,5 @@ func main() {
 	// 	return c.SendString("Hello, World!")
 	// })
 
-	app.Listen("localhost" + ":" + "8080")
+	app.Listen(cnf.Server.Host + ":" + cnf.Server.Port)
 }
