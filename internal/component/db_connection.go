@@ -37,7 +37,7 @@ func GetDatabaseConnection(cnf *config.Config) *gorm.DB {
 	db.Exec("CREATE SCHEMA IF NOT EXISTS topup_schema")
 	// db.Exec("CREATE TYPE level AS ENUM ('Beginner', 'Intermediate', 'Advanced');")
 	// Melakukan migrasi ke database (membuat tabel user jika belum ada)
-	err = db.Debug().AutoMigrate(&domain.User{})
+	err = db.Debug().AutoMigrate(&domain.User{}, &domain.Game{})
 	if err != nil {
 		log.Fatalf("Gagal melakukan migrasi: %v", err)
 	}

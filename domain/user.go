@@ -3,6 +3,7 @@ package domain
 import (
 	"context"
 	"time"
+	"topupservice/dto"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -24,6 +25,8 @@ func (User) TableName() string {
 
 type UserRepository interface {
 	FindByID(ctx context.Context, id uuid.UUID) (User, error)
+	FindByUsername(ctx context.Context, username string) (User, error)
+	InsertUser(ctx context.Context, req dto.UserRegisterReq) (bool, error)
 }
 
 type UserService interface {

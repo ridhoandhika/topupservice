@@ -1,6 +1,85 @@
+definitions:
+  dto.AuthReq:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.UserRegisterReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
 info:
   contact: {}
 paths:
+  /api/auth/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Login Credentials
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AuthReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: JWT Token
+        "400":
+          description: Invalid Request
+        "401":
+          description: Authentication Failed
+      summary: Generate Token for Authentication
+      tags:
+      - auth
+  /api/auth/refresh:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: New JWT Token
+        "401":
+          description: Authentication Failed
+      security:
+      - BearerAuth: []
+      summary: Refresh JWT Token
+      tags:
+      - auth
+  /api/auth/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: User Registration Request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserRegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Registration Success
+        "400":
+          description: Invalid Request
+        "409":
+          description: User already exists
+      summary: Register a new user
+      tags:
+      - auth
   /api/user/{id}:
     get:
       consumes:
@@ -17,4 +96,9 @@ paths:
       summary: Get user by id
       tags:
       - user
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"
