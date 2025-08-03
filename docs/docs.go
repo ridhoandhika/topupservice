@@ -103,13 +103,22 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "Registration Success"
+                        "description": "Registration Success",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BaseResp"
+                        }
                     },
                     "400": {
-                        "description": "Invalid Request"
+                        "description": "Invalid Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BaseResp"
+                        }
                     },
                     "409": {
-                        "description": "User already exists"
+                        "description": "User already exists",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BaseResp"
+                        }
                     }
                 }
             }
@@ -135,11 +144,36 @@ const docTemplate = `{
                         "required": true
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
         }
     },
     "definitions": {
+        "domain.BaseResp": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                }
+            }
+        },
         "dto.AuthReq": {
             "type": "object",
             "properties": {
@@ -154,14 +188,29 @@ const docTemplate = `{
         "dto.UserRegisterReq": {
             "type": "object",
             "properties": {
-                "email": {
-                    "type": "string"
+                "level": {
+                    "type": "string",
+                    "enum": [
+                        "Superadmin",
+                        "CS",
+                        "Admin",
+                        "Member",
+                        "Silver",
+                        "Gold"
+                    ],
+                    "example": "Member"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "123456"
                 },
                 "username": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "johndoe"
+                },
+                "whatsapp": {
+                    "type": "string",
+                    "example": "+628123456789"
                 }
             }
         }
@@ -177,12 +226,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
-	Host:             "",
-	BasePath:         "",
+	Version:          "1.0",
+	Host:             "localhost:8080",
+	BasePath:         "/",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "My Awesome API",
+	Description:      "Ini adalah dokumentasi API saya",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

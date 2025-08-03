@@ -34,7 +34,8 @@ func (u userRepository) InsertUser(ctx context.Context, req dto.UserRegisterReq)
 		ID:       uuid.New(),
 		Username: req.Username,
 		Password: req.Password,
-		Email:    req.Email,
+		Level:    req.Level,
+		Whatsapp: req.Whatsapp,
 	}
 
 	if err := u.db.WithContext(ctx).Create(&user).Error; err != nil {

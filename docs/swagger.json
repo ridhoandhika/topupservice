@@ -1,8 +1,13 @@
 {
     "swagger": "2.0",
     "info": {
-        "contact": {}
+        "description": "Ini adalah dokumentasi API saya",
+        "title": "My Awesome API",
+        "contact": {},
+        "version": "1.0"
     },
+    "host": "localhost:8080",
+    "basePath": "/",
     "paths": {
         "/api/auth/login": {
             "post": {
@@ -92,13 +97,22 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Registration Success"
+                        "description": "Registration Success",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BaseResp"
+                        }
                     },
                     "400": {
-                        "description": "Invalid Request"
+                        "description": "Invalid Request",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BaseResp"
+                        }
                     },
                     "409": {
-                        "description": "User already exists"
+                        "description": "User already exists",
+                        "schema": {
+                            "$ref": "#/definitions/domain.BaseResp"
+                        }
                     }
                 }
             }
@@ -124,11 +138,36 @@
                         "required": true
                     }
                 ],
-                "responses": {}
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "404": {
+                        "description": "User Not Found",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
             }
         }
     },
     "definitions": {
+        "domain.BaseResp": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                }
+            }
+        },
         "dto.AuthReq": {
             "type": "object",
             "properties": {
@@ -143,14 +182,29 @@
         "dto.UserRegisterReq": {
             "type": "object",
             "properties": {
-                "email": {
-                    "type": "string"
+                "level": {
+                    "type": "string",
+                    "enum": [
+                        "Superadmin",
+                        "CS",
+                        "Admin",
+                        "Member",
+                        "Silver",
+                        "Gold"
+                    ],
+                    "example": "Member"
                 },
                 "password": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "123456"
                 },
                 "username": {
-                    "type": "string"
+                    "type": "string",
+                    "example": "johndoe"
+                },
+                "whatsapp": {
+                    "type": "string",
+                    "example": "+628123456789"
                 }
             }
         }

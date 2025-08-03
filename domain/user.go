@@ -11,10 +11,12 @@ import (
 
 type User struct {
 	gorm.Model
-	ID        uuid.UUID `gorm:"type:uuid;primaryKey"`       // UUID sebagai primary key
-	Username  string    `gorm:"type:varchar(100);not null"` // Kolom Username yang unik dan tidak boleh kosong
-	Password  string    `gorm:"type:varchar(255);not null"` // Kolom Password yang tidak boleh kosong
-	Email     string    `gorm:"type:varchar(255);not null"` // Kolom Password yang tidak boleh kosong
+	ID        uuid.UUID `gorm:"type:uuid;primaryKey"`                       // UUID sebagai primary key
+	Username  string    `gorm:"type:varchar(100);not null"`                 // Kolom Username yang unik dan tidak boleh kosong
+	Password  string    `gorm:"type:varchar(255);not null"`                 // Kolom Password yang tidak boleh kosong
+	Status    string    `gorm:"type:varchar(25);not null;default:'active'"` // Kolom Password yang tidak boleh kosong
+	Level     string    `gorm:"type:varchar(25);not null"`                  // Kolom Password yang tidak boleh kosong
+	Whatsapp  string    `gorm:"type:varchar(25)"`                           // Kolom Password yang tidak boleh kosong
 	CreatedAt time.Time // Kolom CreatedAt
 	UpdatedAt time.Time // Kolom UpdatedAt
 }

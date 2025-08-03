@@ -14,6 +14,11 @@ import (
 	"github.com/gofiber/fiber/v2/middleware/logger"
 )
 
+// @title       My Awesome API
+// @version     2.0
+// @description Ini adalah dokumentasi API saya
+// @host        localhost:8080
+// @BasePath    /
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
@@ -29,6 +34,7 @@ func main() {
 	authMiddleware := middleware.Authenticate(authService)
 
 	app := fiber.New()
+
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "http://localhost:3000, http://localhost:5173, http://localhost:8081, http://localhost:8080", // Membolehkan domain tertentu
 		AllowMethods: "GET,POST,PUT,DELETE,PATCH",                                                                  // Metode HTTP yang diizinkan

@@ -89,9 +89,9 @@ func (a authApi) ValidateToken(ctx *fiber.Ctx) error {
 // @Accept json
 // @Produce json
 // @Param body body dto.UserRegisterReq true "User Registration Request"
-// @Success 200 "Registration Success"
-// @Failure 400 "Invalid Request"
-// @Failure 409 "User already exists"
+// @Success 200 {object} domain.BaseResp "Registration Success"
+// @Failure 400 {object} domain.BaseResp "Invalid Request"
+// @Failure 409 {object} domain.BaseResp "User already exists"
 // @Router /api/auth/register [post]
 func (a authApi) Register(ctx *fiber.Ctx) error {
 	var req dto.UserRegisterReq

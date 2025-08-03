@@ -1,4 +1,13 @@
+basePath: /
 definitions:
+  domain.BaseResp:
+    properties:
+      data: {}
+      message:
+        type: string
+      status:
+        type: boolean
+    type: object
   dto.AuthReq:
     properties:
       password:
@@ -8,15 +17,32 @@ definitions:
     type: object
   dto.UserRegisterReq:
     properties:
-      email:
+      level:
+        enum:
+        - Superadmin
+        - CS
+        - Admin
+        - Member
+        - Silver
+        - Gold
+        example: Member
         type: string
       password:
+        example: "123456"
         type: string
       username:
+        example: johndoe
+        type: string
+      whatsapp:
+        example: "+628123456789"
         type: string
     type: object
+host: localhost:8080
 info:
   contact: {}
+  description: Ini adalah dokumentasi API saya
+  title: My Awesome API
+  version: "1.0"
 paths:
   /api/auth/login:
     post:
@@ -73,10 +99,16 @@ paths:
       responses:
         "200":
           description: Registration Success
+          schema:
+            $ref: '#/definitions/domain.BaseResp'
         "400":
           description: Invalid Request
+          schema:
+            $ref: '#/definitions/domain.BaseResp'
         "409":
           description: User already exists
+          schema:
+            $ref: '#/definitions/domain.BaseResp'
       summary: Register a new user
       tags:
       - auth
@@ -92,7 +124,15 @@ paths:
         type: string
       produces:
       - application/json
-      responses: {}
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "404":
+          description: User Not Found
+          schema:
+            type: string
       summary: Get user by id
       tags:
       - user

@@ -28,7 +28,6 @@ func (u userService) GetUser(ctx context.Context, userID string) (interface{}, e
 	userResp := dto.UserData{
 		ID:       user.ID,
 		Username: user.Username,
-		Email:    user.Email,
 	}
 	return userResp, nil
 }

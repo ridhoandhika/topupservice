@@ -22,6 +22,8 @@ func User(app *fiber.Group, userService domain.UserService) {
 // @Accept json
 // @Produce json
 // @Param id path string true "user id"
+// @Success 200 {object} string "OK"
+// @Failure 404 {object} string "User Not Found"
 // @Router /api/user/{id} [get]
 func (a userApi) GetUser(ctx *fiber.Ctx) error {
 	id := ctx.Params("id")
